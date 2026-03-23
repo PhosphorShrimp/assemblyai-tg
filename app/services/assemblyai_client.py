@@ -53,12 +53,12 @@ class AssemblyAIClient:
     def create_transcript(self, audio_url: str) -> str:
         """Create transcript job and return transcript id."""
         url = f"{self.base_url}/v2/transcript"
-        payload: dict[str, Any] = {
+        payload = {
             "audio_url": audio_url,
-            "language_detection": True,
-            "speaker_labels": True,
-            "speech_models": [{"provider": "assemblyai", "name": "universal"}],
-        }
+         "speech_models": ["universal-2"],
+          "language_code": "ru",
+         "speaker_labels": False,
+        }  
         logger.info("Creating transcript job in AssemblyAI")
         try:
             response = requests.post(
