@@ -4,8 +4,12 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from os import getenv
+from pathlib import Path
 
 from dotenv import load_dotenv
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+ENV_PATH = BASE_DIR / ".env"
 
 
 @dataclass(frozen=True)
@@ -33,7 +37,7 @@ def _required_env(name: str) -> str:
 
 def load_settings() -> Settings:
     """Load and validate application settings from .env and environment."""
-    load_dotenv()
+    load_dotenv(dotenv_path=ENV_PATH)
     return Settings(
         telegram_bot_token=_required_env("TELEGRAM_BOT_TOKEN"),
         assemblyai_api_key=_required_env("ASSEMBLYAI_API_KEY"),
